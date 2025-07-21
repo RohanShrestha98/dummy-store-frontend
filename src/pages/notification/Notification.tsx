@@ -2,7 +2,6 @@ import SearchPagination from "@/components/SearchPagination";
 import { ReactTable } from "../../components/Table";
 import { useEffect, useMemo, useState } from "react";
 import TopButton from "@/components/TopButton";
-import { useNotificationData } from "@/hooks/useQueryData";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { ConvertHtmlToPlainText } from "@/utils/convertHtmlToPlainText";
@@ -23,8 +22,7 @@ export default function Notification() {
     searchParams.get("pageSize") ?? "10"
   );
   const [page, setPage] = useState(searchParams.get("page") ?? 1);
-  const { data, isLoading, isError } = useNotificationData();
-
+  const data = [];
   const columns = useMemo(() => {
     const cols = [
       {
@@ -166,8 +164,6 @@ export default function Notification() {
           setPageSize={setPageSize}
         />
         <ReactTable
-          isLoading={isLoading}
-          isError={isError}
           columns={columns}
           data={data?.data ?? []}
           currentPage={1}
