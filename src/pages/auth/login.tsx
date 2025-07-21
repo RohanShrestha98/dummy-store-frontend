@@ -128,7 +128,7 @@ const Login = () => {
             <p className="text-[#666]">Don’t have an account? </p>
 
             <p
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/register")}
               className="text-theme-color text-blue-700 cursor-pointer underline"
             >
               register
