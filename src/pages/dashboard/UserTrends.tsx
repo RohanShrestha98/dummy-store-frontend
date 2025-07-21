@@ -1,5 +1,3 @@
-import { useRiskData, useUserData } from "@/hooks/useQueryData";
-import React, { PureComponent } from "react";
 import {
   LineChart,
   Line,
@@ -12,7 +10,7 @@ import {
 } from "recharts";
 
 export default function UserTrends() {
-  const { data: userData } = useUserData();
+  const userData = [];
 
   const admin = userData?.data?.filter((item) => {
     return item?.role?.id == 1;

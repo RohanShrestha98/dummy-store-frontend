@@ -5,10 +5,9 @@ import {
   YAxis,
   ResponsiveContainer,
 } from "recharts";
-import { useRiskData } from "@/hooks/useQueryData";
 
 export default function PaymentGateway() {
-  const { data: riskData } = useRiskData();
+  const riskData = [];
   const low = riskData?.data?.filter((item) => item?.impact == "low");
   const medium = riskData?.data?.filter((item) => item?.impact == "medium");
   const high = riskData?.data?.filter((item) => item?.impact == "high");

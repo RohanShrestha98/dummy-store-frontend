@@ -1,7 +1,6 @@
 import { HiOutlineUsers } from "react-icons/hi2";
 import { useEffect, useState } from "react";
 import TopButton from "@/components/TopButton";
-import { useStoreData } from "@/hooks/useQueryData";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashCan } from "react-icons/fa6";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -10,7 +9,6 @@ import { LuStore } from "react-icons/lu";
 import { MdOutlineDashboard } from "react-icons/md";
 import { BsGraphUpArrow } from "react-icons/bs";
 import truncateText from "@/utils/truncateText";
-import Loading from "@/assets/AllSvg";
 import EmptyPage from "@/components/EmptyPage";
 import InputField from "@/ui/InputField";
 import { AiOutlineCopy } from "react-icons/ai";
@@ -37,12 +35,6 @@ export default function Store() {
 
     return () => clearTimeout(delay);
   }, [searchText]);
-  const { isLoading, isError } = useStoreData(
-    debouncedSearchText,
-    pageSize,
-    page,
-    false
-  );
 
   const storeDetailOptions = [
     {
@@ -171,8 +163,6 @@ export default function Store() {
             );
           })}
         </div>
-        {isLoading && <Loading />}
-        {isError && <p className="flex items-center justify-center">Error</p>}
         {data?.data?.length == 0 && (
           <div className="w-full flex justify-center  pt-16 pb-20">
             <EmptyPage message={"Oops! No store available right now."} />

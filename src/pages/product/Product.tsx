@@ -1,7 +1,6 @@
 import SearchPagination from "@/components/SearchPagination";
 import { ReactTable } from "../../components/Table";
 import { useEffect, useMemo, useState } from "react";
-import { useProductData } from "@/hooks/useQueryData";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashCan } from "react-icons/fa6";
 import DeleteModal from "@/components/DeleteModal";
@@ -56,14 +55,6 @@ export default function Product() {
     searchParams.get("pageSize") ?? "10"
   );
   const [page, setPage] = useState(searchParams.get("page") ?? 1);
-  const { isLoading, isError } = useProductData(
-    selectedVendor?.id ?? selectedVendor,
-    debouncedProductSearch,
-    pageSize,
-    page,
-    selectedStore?.id ?? selectedStore,
-    selectedCategory?.id ?? selectedCategory
-  );
 
   const columns = useMemo(
     () => [
@@ -280,8 +271,6 @@ export default function Product() {
       {/* <DashboardTop /> */}
       <div className=" bg-white drop-shadow">
         <ReactTable
-          isLoading={isLoading}
-          isError={isError}
           columns={columns}
           data={data?.data ?? []}
           currentPage={1}

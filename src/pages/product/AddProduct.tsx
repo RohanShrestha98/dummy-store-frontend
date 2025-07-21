@@ -1,12 +1,5 @@
 import { useProductMutation } from "@/hooks/useMutateData";
-import {
-  useAddProductByBarcodeData,
-  useCategoryData,
-  useCategoryDetailsData,
-  useProductForUserData,
-  useStoreData,
-  useVendorData,
-} from "@/hooks/useQueryData";
+import { useProductForUserData } from "@/hooks/useQueryData";
 import Button from "@/ui/Button";
 import InputField from "@/ui/InputField";
 import {
@@ -52,14 +45,6 @@ export default function AddProduct() {
   const [selectedStore, setSelectedStore] = useState();
   const [selectedCategory, setSelectedCategory] = useState();
   const [error, setError] = useState();
-  const { isLoading, isError } = useProductForUserData(
-    user?.data?.storeId,
-    10,
-    done,
-    "",
-    10,
-    1
-  );
 
   const [description, setDescription] = useState(edit?.description);
 
@@ -72,13 +57,7 @@ export default function AddProduct() {
     };
   }, [scannedBarCode]);
 
-  const {
-    data: productDetsilsData,
-    isLoading: productDetailsIsLoading,
-    isError: productDetailsIsError,
-  } = useAddProductByBarcodeData(debouncedBarCode, true, done);
-
-  let scannedBarCodeData = productDetsilsData?.data?.[0];
+  let scannedBarCodeData = [];
 
   // 🏬 Store search
   const [storeSearch, setStoreSearch] = useState("");
@@ -111,38 +90,6 @@ export default function AddProduct() {
       quantity: edit?.quantity,
     },
   });
-
-  useEffect(() => {
-    const specFields = {};
-    const spec = scannedBarCodeData?.specification ?? {};
-    Object.keys(spec).forEach((key) => {
-      specFields[`${key}_specification`] = spec[key];
-    });
-    if (scannedBarCodeData && !edit) {
-      reset({
-        name: scannedBarCodeData?.name || "",
-        costPrice: scannedBarCodeData?.costPrice || "",
-        sellingPrice: scannedBarCodeData?.sellingPrice || "",
-        quantity: scannedBarCodeData?.quantity || "",
-        ...specFields,
-      });
-
-      setDescription(scannedBarCodeData?.description || "");
-      setSelectedVendor(scannedBarCodeData?.vendor || "");
-      setSelectedStore(scannedBarCodeData?.store || "");
-      setSelectedCategory(scannedBarCodeData?.category || "");
-    } else {
-      reset({
-        name: "",
-        costPrice: "",
-        sellingPrice: "",
-        quantity: "",
-        ...specFields,
-      });
-      setDescription("");
-      setScannedBarCode("");
-    }
-  }, [scannedBarCodeData]);
 
   useEffect(() => {
     const specFields = {};
@@ -309,10 +256,6 @@ export default function AddProduct() {
       className: "",
     },
   ];
-
-  if (productDetailsIsLoading) {
-    return <Loading />;
-  }
   return (
     <div className="flex justify-between gap-3 items-start p-6 relative h-full">
       <MdOutlineQrCodeScanner
@@ -541,7 +484,6 @@ export default function AddProduct() {
             </div>
           </div>
         )}
-        {isLoading && <Loading />}
       </div>
     </div>
   );

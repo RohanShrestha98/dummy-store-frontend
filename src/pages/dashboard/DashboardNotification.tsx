@@ -1,22 +1,9 @@
-import { useNotificationData } from "@/hooks/useQueryData";
-import CustomSelect from "@/ui/CustomSelect";
-import { ConvertHtmlToPlainText } from "@/utils/convertHtmlToPlainText";
 import truncateText from "@/utils/truncateText";
-import { Pointer } from "lucide-react";
 import { useState } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
-
-const notification = [
-  {
-    title: "Referral Code Offer",
-    meassage:
-      "Dear students you get 10% discount on all courses by using referral code. For referral code you can contract us  9849168659.",
-  },
-];
 
 export default function DashboardNotification() {
-  const { data, isLoading, isError } = useNotificationData();
   const [active, setActive] = useState("push notification");
+  const data = [];
 
   return (
     <div className="py-5 bg-white">

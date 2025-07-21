@@ -1,8 +1,4 @@
 import Loading from "@/assets/AllSvg";
-import {
-  useAddProductByBarcodeData,
-  useProductForUserData,
-} from "@/hooks/useQueryData";
 import Button from "@/ui/Button";
 import truncateText from "@/utils/truncateText";
 import { useEffect, useState } from "react";
@@ -64,17 +60,6 @@ export default function UserProduct() {
   const [categorySearch, setCategorySearch] = useState("");
   const debouncedCategorySearch = useDebounce(categorySearch);
 
-  const { isLoading, isError } = useProductForUserData(
-    user?.data?.store?.id ?? selectedStore?.id,
-    10,
-    false,
-    true,
-    debouncedSearchText,
-    pageSize,
-    page,
-    selectedCategory?.id ?? selectedCategory
-  );
-
   const [selectedProduct, setSelectedProduct] = useState([]);
   const [open, setOpen] = useState(false);
   const [openCheckOutModal, setOpenCheckOutModal] = useState(false);
@@ -95,36 +80,6 @@ export default function UserProduct() {
       clearTimeout(handler);
     };
   }, [scannedBarCode]);
-
-  const {
-    data: productDetsilsData,
-    isLoading: productDetailsIsLoading,
-    isError: productDetailsIsError,
-  } = useAddProductByBarcodeData(debouncedBarCode);
-
-  useEffect(() => {
-    const product = productDetsilsData?.data?.[0];
-
-    if (product) {
-      setScannedBarCodeData((prev) => [product, ...prev]);
-
-      setSelectedProduct((prev) => {
-        const updated = [product, ...prev];
-        setCheckoutProduct(updated);
-        setOpen(true);
-        return updated;
-      });
-    }
-  }, [productDetsilsData]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (productDetsilsData?.data?.length == 0)
-        return toast.error("Product not added in the store");
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, [productDetsilsData]);
 
   const handleProductClick = (item) => {
     const updated = [item, ...selectedProduct];
@@ -313,13 +268,6 @@ export default function UserProduct() {
                 );
             })}
           </div>
-
-          {isLoading && (
-            <div className="pt-40">
-              <Loading />
-            </div>
-          )}
-          {isError && <p className="flex items-center justify-center">Error</p>}
           {data?.data?.length == 0 && (
             <div className="w-full flex justify-center  pt-16 pb-20">
               <EmptyPage message={"Oops! No product in this store"} />

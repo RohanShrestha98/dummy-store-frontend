@@ -2,36 +2,28 @@ import { FaUser } from "react-icons/fa";
 import { FaBook } from "react-icons/fa6";
 import { HiCurrencyDollar } from "react-icons/hi2";
 import { MdSubscriptions } from "react-icons/md";
-import { useRiskData, useUserData } from "@/hooks/useQueryData";
 import { useAuthStore } from "@/store/useAuthStore";
 
 export default function DashboardTop() {
-  const { data: userData } = useUserData();
-  const { data: riskData } = useRiskData();
-  const { data: completedRiskData } = useRiskData("", "", "50", "");
   const { user } = useAuthStore();
   const role = user?.data?.role;
-
-  const completedData = completedRiskData?.data?.filter(
-    (item) => item?.status == "closed"
-  );
   const items = [
     {
       icon: <FaUser color="white" fontSize={14} />,
       title: "Total Users",
-      amount: userData?.data?.length ?? 0,
+      amount: 12,
       bgColor: "bg-[#7DA8E8]",
     },
     {
       icon: <FaBook color="white" fontSize={14} />,
       title: "Total Store",
-      amount: riskData?.data?.length ?? 0,
+      amount: 6,
       bgColor: "bg-[#7DD3E8]",
     },
     {
       icon: <HiCurrencyDollar color="white" fontSize={18} />,
       title: "Total Product",
-      amount: completedData?.length ?? 0,
+      amount: 67,
       // percentage: -2,
       bgColor: "bg-[#7DE888]",
     },
@@ -48,7 +40,7 @@ export default function DashboardTop() {
     {
       icon: <FaUser color="white" fontSize={14} />,
       title: "Total Time",
-      amount: userData?.data?.length ?? 0,
+      amount: 120,
       bgColor: "bg-[#7DA8E8]",
     },
     {
@@ -60,7 +52,7 @@ export default function DashboardTop() {
     {
       icon: <HiCurrencyDollar color="white" fontSize={18} />,
       title: "Sold Product",
-      amount: completedData?.length ?? 0,
+      amount: 14 ?? 0,
       // percentage: -2,
       bgColor: "bg-[#7DE888]",
     },

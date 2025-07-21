@@ -13,7 +13,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import SelectTime from "@/utils/selectTime";
-import { useStoreCount } from "@/hooks/useQueryData";
 import { useAuthStore } from "@/store/useAuthStore";
 
 export default function AddStoreModal({
@@ -28,11 +27,6 @@ export default function AddStoreModal({
   const [error, setError] = useState("");
   const [selectedOpenTime, setSelectedOpenTime] = useState();
   const [selectedCloseTime, setSelectedCloseTime] = useState();
-  const {
-    data: storeCount,
-    isLoading: storeIsLoading,
-    isError: storeIsError,
-  } = useStoreCount();
 
   const fieldSchema = Yup.object().shape({
     name: Yup.string()
@@ -175,14 +169,8 @@ export default function AddStoreModal({
             />
             <Button
               type="submit"
-              disabled={user?.data?.storeLimit <= storeCount?.total}
-              buttonName={`${
-                user?.data?.storeLimit <= storeCount?.total
-                  ? "Reach Maximum"
-                  : edit
-                  ? "Edit Store"
-                  : "Add Store"
-              }`}
+              // disabled={user?.data?.storeLimit <= storeCount?.total}
+              buttonName={`${edit ? "Edit Store" : "Add Store"}`}
               handleButtonClick={() => {
                 setHasSubmittedClick(true);
               }}

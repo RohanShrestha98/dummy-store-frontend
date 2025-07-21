@@ -1,7 +1,6 @@
 import SearchPagination from "@/components/SearchPagination";
 import { ReactTable } from "../../components/Table";
 import { useEffect, useMemo, useState } from "react";
-import { useSalesData } from "@/hooks/useQueryData";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment";
 import truncateText from "@/utils/truncateText";
@@ -42,13 +41,6 @@ export default function Sales() {
       : user?.data?.store ?? ""
   );
   const [page, setPage] = useState(searchParams.get("page") ?? 1);
-  const { isLoading, isError } = useSalesData(
-    selectedStore?.id ?? selectedStore ?? "",
-    debouncedSearchText,
-    pageSize,
-    page
-  );
-
   const columns = useMemo(
     () => [
       {
@@ -212,8 +204,6 @@ export default function Sales() {
       </div>
       <div className="px-4 pt-2 flex flex-col drop-shadow">
         <ReactTable
-          isLoading={isLoading}
-          isError={isError}
           columns={columns}
           data={data?.data ?? []}
           currentPage={1}

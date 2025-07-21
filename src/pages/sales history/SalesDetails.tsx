@@ -1,11 +1,8 @@
 import SearchPagination from "@/components/SearchPagination";
 import { ReactTable } from "../../components/Table";
 import { useEffect, useMemo, useState } from "react";
-import { useSalesDetailsData } from "@/hooks/useQueryData";
 import { useLocation, useParams, useSearchParams } from "react-router-dom";
-import moment from "moment";
 import truncateText from "@/utils/truncateText";
-import InputField from "@/ui/InputField";
 import Button from "@/ui/Button";
 import { FiDownload } from "react-icons/fi";
 import { useAuthStore } from "@/store/useAuthStore";
@@ -30,12 +27,6 @@ export default function SalesDetails() {
     searchParams.get("pageSize") ?? "10"
   );
   const [page, setPage] = useState(searchParams.get("page") ?? 1);
-  const { isLoading, isError } = useSalesDetailsData(
-    salesId,
-    debouncedSearchText,
-    pageSize,
-    page
-  );
 
   const columns = useMemo(
     () => [
@@ -206,8 +197,6 @@ export default function SalesDetails() {
             setPageSize={setPageSize}
           />
           <ReactTable
-            isLoading={isLoading}
-            isError={isError}
             columns={columns}
             data={data?.data ?? []}
             currentPage={1}

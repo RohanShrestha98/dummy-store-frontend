@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import TopButton from "@/components/TopButton";
-import { useVendorData } from "@/hooks/useQueryData";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashCan } from "react-icons/fa6";
 import DeleteModal from "@/components/DeleteModal";
@@ -10,7 +9,6 @@ import { LuStore } from "react-icons/lu";
 import { MdOutlineDashboard } from "react-icons/md";
 import { BsGraphUpArrow } from "react-icons/bs";
 import truncateText from "@/utils/truncateText";
-import Loading from "@/assets/AllSvg";
 import EmptyPage from "@/components/EmptyPage";
 import InputField from "@/ui/InputField";
 import { dummyVendorData as data } from "../../../database";
@@ -33,13 +31,6 @@ export default function Vendor() {
 
     return () => clearTimeout(delay);
   }, [searchText]);
-
-  const { isLoading, isError } = useVendorData(
-    debouncedSearchText,
-    pageSize,
-    page,
-    false
-  );
 
   const storeDetailOptions = [
     {
@@ -143,8 +134,6 @@ export default function Vendor() {
             );
           })}
         </div>
-        {isLoading && <Loading />}
-        {isError && <p className="flex items-center justify-center">Error</p>}
         {data?.data?.length == 0 && (
           <div className="w-full flex justify-center  pt-16 pb-20">
             <EmptyPage message={"Oops! No vendor available right now."} />

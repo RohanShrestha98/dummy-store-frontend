@@ -2,7 +2,7 @@ import SearchPagination from "@/components/SearchPagination";
 import { ReactTable } from "../../components/Table";
 import { useEffect, useMemo, useState } from "react";
 import TopButton from "@/components/TopButton";
-import { useStoreData, useUserData } from "@/hooks/useQueryData";
+import { useUserData } from "@/hooks/useQueryData";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashCan } from "react-icons/fa6";
 import DeleteModal from "@/components/DeleteModal";
@@ -43,13 +43,6 @@ export default function User() {
 
     return () => clearTimeout(delay);
   }, [searchText]);
-
-  const { isLoading, isError } = useUserData(
-    selectedStore?.id ?? "",
-    debouncedSearchText,
-    pageSize,
-    page
-  );
 
   const columns = useMemo(
     () => [
@@ -232,8 +225,6 @@ export default function User() {
       </div>
       <div className="drop-shadow">
         <ReactTable
-          isLoading={isLoading}
-          isError={isError}
           columns={columns}
           data={data?.data ?? []}
           currentPage={1}
