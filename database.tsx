@@ -867,3 +867,20 @@ export const dummyUserDetails = {
     },
   ],
 };
+
+export const dummyAuthData = {
+  token:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZTJhM2RhYmExZTk5ZDQ2NjhmOTc3NmIyMWNiZWE2NDUiLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmFtZSI6IlN1cGVyIEFkbWluIiwic3RvcmVMaW1pdCI6IjYiLCJhZGRyZXNzIjoiMjIxNyBQZXR1bmlhIExhbmUsIFJvd2xldHQsIFRYIDc1MDg5Iiwicm9sZSI6IkFkbWluIn0sImlhdCI6MTc1MzA3OTAwMywiZXhwIjoxNzUzMzc5MDAzfQ.r4Hv6sfqZZY7RFPyrMqKE7j-GFFJcs2yDutUMi6th8M",
+  refresh:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZTJhM2RhYmExZTk5ZDQ2NjhmOTc3NmIyMWNiZWE2NDUiLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmFtZSI6IlN1cGVyIEFkbWluIiwic3RvcmVMaW1pdCI6IjYiLCJhZGRyZXNzIjoiMjIxNyBQZXR1bmlhIExhbmUsIFJvd2xldHQsIFRYIDc1MDg5Iiwicm9sZSI6IkFkbWluIn0sImlhdCI6MTc1MzA3OTAwMywiZXhwIjoxNzUzMzc5MDAzfQ.r4Hv6sfqZZY7RFPyrMqKE7j-GFFJcs2yDutUMi6th8M",
+  data: {
+    id: "e2a3daba1e99d4668f9776b21cbea645",
+    email: "superadmin@gmail.com",
+    name: "Super Admin",
+    storeLimit: "6",
+    address: "2217 Petunia Lane, Rowlett, TX 75089",
+    role: "Admin",
+    access:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZTJhM2RhYmExZTk5ZDQ2NjhmOTc3NmIyMWNiZWE2NDUiLCJlbWFpbCI6InN1cGVyYWRtaW5AZ21haWwuY29tIiwibmFtZSI6IlN1cGVyIEFkbWluIiwic3RvcmVMaW1pdCI6IjYiLCJhZGRyZXNzIjoiMjIxNyBQZXR1bmlhIExhbmUsIFJvd2xldHQsIFRYIDc1MDg5Iiwicm9sZSI6IkFkbWluIn0sImlhdCI6MTc1MzA3OTAwMywiZXhwIjoxNzUzMzc5MDAzfQ.r4Hv6sfqZZY7RFPyrMqKE7j-GFFJcs2yDutUMi6th8M",
+  },
+};

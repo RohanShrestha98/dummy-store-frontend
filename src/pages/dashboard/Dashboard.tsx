@@ -8,9 +8,11 @@ import truncateText from "@/utils/truncateText";
 import { ReactTable } from "@/components/Table";
 import moment from "moment";
 import { dummySalesData as data } from "../../../database";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default function Dashboard() {
   const { isLoading, isError } = useSalesData();
+  const { user } = useAuthStore();
 
   const columns = useMemo(
     () => [

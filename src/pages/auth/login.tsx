@@ -10,6 +10,7 @@ import { useAuthMutation } from "@/hooks/useMutateData";
 import Button from "@/ui/Button";
 import LoginInput from "@/ui/LoginInput";
 import toast from "react-hot-toast";
+import { dummyAuthData as data } from "../../../database";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string().required("Required"),
@@ -32,21 +33,31 @@ const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmitHandler = async (data) => {
-    try {
-      const result = await authMutation.mutateAsync(["post", "", data]);
-      setUser({
-        token: result?.data?.access,
-        refresh: result?.data?.access,
-        data: result?.data,
-      });
-      toast.success("Login successfully");
-      result?.data?.role == "Staff" ? navigate("/user-product") : navigate("/");
-      reset();
-    } catch (error) {
-      toast.error(error?.response?.data?.error);
-      setError(error?.response?.data?.error);
-    }
+  const onSubmitHandler = async () => {
+    setUser({
+      ...data,
+    });
+    toast.success("Login successfully");
+    data?.role == "Staff" ? navigate("/user-product") : navigate("/");
+    // try {
+    //   const result = await authMutation.mutateAsync(["post", "", data]);
+    //   console.log("object", {
+    //     token: result?.data?.access,
+    //     refresh: result?.data?.access,
+    //     data: result?.data,
+    //   });
+    //   setUser({
+    //     token: result?.data?.access,
+    //     refresh: result?.data?.access,
+    //     data: result?.data,
+    //   });
+    //   toast.success("Login successfully");
+    //   result?.data?.role == "Staff" ? navigate("/user-product") : navigate("/");
+    //   reset();
+    // } catch (error) {
+    //   toast.error(error?.response?.data?.error);
+    //   setError(error?.response?.data?.error);
+    // }
   };
 
   return (
