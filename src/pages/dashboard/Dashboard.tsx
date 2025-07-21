@@ -2,7 +2,6 @@ import DashboardTop from "./DashboardTop";
 import DashboardNotification from "./DashboardNotification";
 import UserTrends from "./UserTrends";
 import PaymentGateway from "./PaymentGateway";
-import { useSalesData } from "@/hooks/useQueryData";
 import { useMemo } from "react";
 import truncateText from "@/utils/truncateText";
 import { ReactTable } from "@/components/Table";
@@ -11,7 +10,6 @@ import { dummySalesData as data } from "../../../database";
 import { useAuthStore } from "@/store/useAuthStore";
 
 export default function Dashboard() {
-  const { isLoading, isError } = useSalesData();
   const { user } = useAuthStore();
 
   const columns = useMemo(
@@ -87,8 +85,6 @@ export default function Dashboard() {
         <div className="bg-white p-2">
           <p className=" font-medium text- mb-2">Sales History</p>
           <ReactTable
-            isLoading={isLoading}
-            isError={isError}
             columns={columns}
             data={data?.data ?? []}
             currentPage={1}
