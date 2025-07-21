@@ -1,7 +1,6 @@
 import SearchPagination from "@/components/SearchPagination";
 import { ReactTable } from "../../components/Table";
 import { useEffect, useMemo, useState } from "react";
-import { useCategoryData } from "@/hooks/useQueryData";
 import { FiEdit2 } from "react-icons/fi";
 import { FaRegTrashCan } from "react-icons/fa6";
 import DeleteModal from "@/components/DeleteModal";
@@ -30,12 +29,6 @@ export default function Category() {
   }, [searchText]);
 
   const [page, setPage] = useState(searchParams.get("page") ?? 1);
-  const { isLoading, isError } = useCategoryData(
-    debouncedSearchText,
-    pageSize,
-    page,
-    false
-  );
 
   const columns = useMemo(
     () => [
@@ -129,8 +122,6 @@ export default function Category() {
       </div>
       <div>
         <ReactTable
-          isLoading={isLoading}
-          isError={isError}
           columns={columns}
           data={data?.data ?? []}
           currentPage={1}
